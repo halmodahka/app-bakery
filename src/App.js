@@ -1,39 +1,63 @@
 import "./App.css";
-import { useState } from "react";
-import { ThemeButton } from "./styles";
-import { GlobalStyle } from "./styles";
 import ShopComponents from "../src/components/Home";
-import ProductsList from "../src/components/ProductList";
+import Product from "../src/components/ProductList";
+import { GlobalStyle, theme } from "../src/styles";
 import { ThemeProvider } from "styled-components";
-
-const theme = {
-  light: {
-    mainColor: "#242424", // main font color
-    backgroundColor: "#fefafb", // main background color
-    pink: "#ff85a2",
-  },
-  dark: {
-    mainColor: "#fefafb", // main font color
-    backgroundColor: "#242424", // main background color
-    pink: "#ff85a2",
-  },
-  mainColor: "##000000",
-  backgroundColor: "#FDFFFD",
-  black: "#000000",
-};
+import { useState } from "react";
+import { Route, Switch } from "react-router";
+import NavBar from "./components/NavBar";
+import ProductDetails from "./components/ProductsDetails";
+import products from "./Products";
+import { Redirect } from "react-router-dom";
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState("light");
+  const [currentTheme, setCurrentTheme] = useState("Light");
+  const [product, setProduct] = useState(null);
+  const [_products, setProducts] = useState(products);
 
-  const toggleTheme = () =>
-    setCurrentTheme(currentTheme === "light" ? "dark" : "light");
+  const deleteProduct = (productSlug) => {
+    const updatedProducts = _products.filter(
+      (product) => product.slug !== +productSlug
+    );
+    setProducts(updatedProducts);
+    setProduct(null);
+  };
+
+  const selectProduct = (productSlug) => {
+    const selectedProduct = products.find(
+      (product) => product.slug === productSlug
+    );
+    setProduct(selectedProduct);
+  };
+
+  const toggleTheme = () => {
+    setCurrentTheme(currentTheme === "Light" ? "Dark" : "Light");
+  };
 
   return (
     <ThemeProvider theme={theme[currentTheme]}>
-      <ThemeButton onClick={toggleTheme}>Dark Mode</ThemeButton>
+      <NavBar currentTheme={currentTheme} toggleTheme={toggleTheme} />
       <GlobalStyle />
-      <ShopComponents />
-      <ProductsList />
+      <Switch>
+        <Route path="/Product" exact>
+          <Product
+            products={_products}
+            deleteProduct={deleteProduct}
+            selectProduct={selectProduct}
+          />
+        </Route>
+        <Route path="/Product/:productSlug">
+          <ProductDetails products={products} />
+        </Route>
+        <Route path="/" exact>
+          <ShopComponents />
+        </Route>
+        <Route path="/404" exact></Route>
+        <h1>404</h1>
+        <Route path="">
+          <Redirect to="/404" />
+        </Route>
+      </Switch>
     </ThemeProvider>
   );
 }

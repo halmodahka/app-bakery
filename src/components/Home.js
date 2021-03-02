@@ -1,4 +1,4 @@
-import logo from "./cakelogo.webp";
+import logo from "./cakelogo.png";
 import React from "react";
 import styled from "styled-components";
 

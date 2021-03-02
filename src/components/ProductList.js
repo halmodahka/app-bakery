@@ -1,25 +1,30 @@
 import React from "react";
-import products from "../Products";
 import ProductsItem from "../components/ProductItem";
+import SearchBar from "./Searchbar";
+import ProductWrapper from "../styles";
 import { useState } from "react";
-import { ListWrapper } from "../styles";
-import SearchBar from "./SearchBar";
 
-const ProductList = () => {
+const Product = (props) => {
   const [query, setQuery] = useState("");
-  <SearchBar setQuery={setQuery} />;
 
-  const filteredCakes = products.filter((product) =>
-    product.name.includes(query)
-  );
-  const productList = filteredCakes.map((product) => (
-    <ProductsItem product={product} key={product.id} />
-  ));
+  const productList = props.products
+    .filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase())
+    )
+    .map((product) => (
+      <ProductsItem
+        product={product}
+        key={product.id}
+        deleteProduct={props.deleteProduct}
+        selectProduct={props.selectProduct}
+      />
+    ));
+
   return (
-    <>
-      <SearchBar />
-      <ListWrapper>{productList}</ListWrapper>
-    </>
+    <div>
+      <SearchBar setQuery={setQuery} />
+      <ProductWrapper>{productList}</ProductWrapper>
+    </div>
   );
 };
-export default ProductList;
+export default Product;

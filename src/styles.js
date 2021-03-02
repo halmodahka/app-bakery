@@ -1,29 +1,86 @@
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
-export const GlobalStyle = createGlobalStyle`
-  body {
+const GlobalStyle = createGlobalStyle`
+body {
     color: ${(props) => props.theme.mainColor};
     background-color: ${(props) => props.theme.backgroundColor}
   }
 `;
-
-export const SearchBarStyled = styled.input`
-  padding: 0.5rem;
-  margin: 1rem auto;
-  display: block;
-  width: 40%;
-`;
-export const ListWrapper = styled.div`
-  align-items: center;
-  justify-content: center;
-  display: flex;
-`;
-
-export const ThemeButton = styled.button`
+const ThemeButton = styled.button`
   font-size: 1em;
-  margin: 1.25em;
   padding: 0.25em 1em;
   border-radius: 3px;
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.backgroundColor};
 `;
+
+export const NavStyled = styled.nav`
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+const SearchBarStyled = styled.input`
+  padding: 0.5rem;
+  margin: 1rem auto;
+  display: block;
+  width: 40%;
+`;
+
+const ProductWrapper = styled.div`
+  display: inline-block;
+  margin-left: 150px;
+  img {
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  p {
+    text-align: center;
+    &.product-price {
+      color: ${(props) => props.theme.blue};
+    }
+  }
+`;
+
+const theme = {
+  Light: {
+    mainColor: "#242424", // main font color
+    backgroundColor: "#fefafb", // main background color
+    blue: "1b1b52",
+    red: "#ff3232",
+  },
+  Dark: {
+    mainColor: "#fefafb", // main font color
+    backgroundColor: "#242424", // main background color
+    blue: "1b1b52",
+    red: "#ff3232",
+  },
+};
+
+export const DeleteButtonStyled = styled.p`
+  color: ${(props) => props.theme.red};
+`;
+
+export const Logo = styled(Link)`
+  padding: 0.75em;
+  img {
+    width: 8rem;
+  }
+`;
+
+const DetailWrapper = styled.div`
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  img {
+    width: 40%;
+    float: left;
+  }
+  p {
+    vertical-align: middle;
+  }
+`;
+export { GlobalStyle, ThemeButton, SearchBarStyled, theme, DetailWrapper };
+export default ProductWrapper;

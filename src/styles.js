@@ -8,7 +8,14 @@ body {
     background-color: ${(props) => props.theme.backgroundColor}
   }
 `;
+
+export const UpdateButtonStyled = styled.p`
+  color: ${(props) => props.theme.pink};
+`;
+
 const ThemeButton = styled.button`
+  background: black;
+  color: white;
   font-size: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
@@ -80,6 +87,15 @@ const DetailWrapper = styled.div`
   }
   p {
     vertical-align: middle;
+  }
+`;
+
+export const CreateButtonStyled = styled.button`
+  color: ${(props) => props.theme.backgroundColor};
+  background-color: ${(props) => props.theme.mainColor};
+  &:hover {
+    color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.backgroundColor};
   }
 `;
 export { GlobalStyle, ThemeButton, SearchBarStyled, theme, DetailWrapper };

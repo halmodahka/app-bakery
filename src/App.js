@@ -13,15 +13,6 @@ import { Redirect } from "react-router-dom";
 function App() {
   const [currentTheme, setCurrentTheme] = useState("Light");
   const [product, setProduct] = useState(null);
-  const [_products, setProducts] = useState(products);
-
-  const deleteProduct = (productSlug) => {
-    const updatedProducts = _products.filter(
-      (product) => product.slug !== +productSlug
-    );
-    setProducts(updatedProducts);
-    setProduct(null);
-  };
 
   const selectProduct = (productSlug) => {
     const selectedProduct = products.find(
@@ -40,14 +31,10 @@ function App() {
       <GlobalStyle />
       <Switch>
         <Route path="/Product" exact>
-          <Product
-            products={_products}
-            deleteProduct={deleteProduct}
-            selectProduct={selectProduct}
-          />
+          <Product />
         </Route>
         <Route path="/Product/:productSlug">
-          <ProductDetails products={products} />
+          <ProductDetails />
         </Route>
         <Route path="/" exact>
           <ShopComponents />
